@@ -1,0 +1,48 @@
+@font-face {
+  src: url("./roboto_light.ttf");
+}
+
+@font-face {
+  src: url("./roboto_medium.ttf");
+}
+
+@font-face {
+  src: url("./roboto_thin.ttf");
+}
+
+@font-face {
+  src: url("./roboto_bold.ttf");
+}
+
+/*Label {
+	-fx-font-family: 'Roboto Light';
+}
+
+#errorLabel {
+	-fx-font-family: 'Roboto Bold';
+}
+.jfxButton {
+	-fx-font-family: 'Roboto Bold';
+}
+
+.link {
+	-fx-font-family: 'Roboto Medium';
+}
+.jfxButton:hover {	
+	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.7) , 10,0,0,1 );
+	-fx-font-family: 'Roboto Bold';
+}
+
+.link:hover {
+	-fx-background-color: rgba(41,122,229,0.25);
+}
+*/
+.shine:hover{
+	-fx-opacity: 1;
+}
+
+.leftButtons:hover{
+	-fx-text-fill: #3498DB;
+	-fx-border-color: #048FD8;
+	-fx-border-width : 0 0 0 2;
+}

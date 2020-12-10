@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.arhariss.application.controllers.SplashController">
+   <children>
+      <ImageView fx:id="associationLogo" fitHeight="311.0" fitWidth="416.0" layoutX="88.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../resources/logoAssociation.png" />
+         </image>
+      </ImageView>
+      <Circle fill="#3c3680" layoutX="548.0" layoutY="28.0" opacity="0.8" radius="100.0" stroke="TRANSPARENT" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Circle fill="#7ce5ab" layoutX="427.0" layoutY="-10.0" opacity="0.8" radius="100.0" stroke="TRANSPARENT" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Circle fill="#3c3680" layoutX="-32.0" layoutY="168.0" opacity="0.8" radius="100.0" stroke="TRANSPARENT" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Circle fill="#7ce5ab" layoutY="61.0" opacity="0.8" radius="100.0" stroke="TRANSPARENT" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Circle fill="#7d99e3" layoutX="-49.0" layoutY="258.0" opacity="0.8" radius="83.0" stroke="TRANSPARENT" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Label layoutX="45.0" layoutY="28.0" text="e-Diabete">
+         <font>
+            <Font name="Calibri Light" size="37.0" />
+         </font>
+      </Label>
+      <Line fx:id="progress" endX="-152.0" fill="#0073ff" layoutX="298.0" layoutY="386.0" startX="-152.0" stroke="#0877ff" strokeLineJoin="ROUND" />
+   </children>
+</AnchorPane>
