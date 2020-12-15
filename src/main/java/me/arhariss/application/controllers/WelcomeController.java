@@ -111,11 +111,11 @@ public class WelcomeController {
 	void loadViewToMainPane(MouseEvent event) {
 		String vienName = ((Label)(event.getSource())).getText().replace("é", "e");
     	String viewPath = "../views/" + vienName + ".fxml";
-    	viewTitle.setText("Gestion " + vienName);
+//    	viewTitle.setText("Gestion " + vienName);
     	try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(viewPath));
-			Node root = (Node) fxmlLoader.load();
 			fxmlLoader.setControllerFactory(springContext::getBean);
+			Node root = (Node) fxmlLoader.load();
 			mainpane.getChildren().setAll(root);
 		} catch (IOException e) {
 			e.printStackTrace();

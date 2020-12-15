@@ -7,6 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
+import com.sun.jna.Pointer;
+import com.sun.jna.platform.win32.User32;
+import com.sun.jna.platform.win32.WinDef;
+import static com.sun.jna.platform.win32.WinUser.GWL_STYLE;
+
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -73,14 +78,24 @@ public class SplashController implements Initializable {
 						fxmlLoader.setControllerFactory(springContext::getBean);
 						root = fxmlLoader.load();
 						Stage stage = new Stage();
-						Scene scene = new Scene(root,1068,650);
+						Scene scene = new Scene(root,1200,670);
 						stage.setScene(scene);
 						associationLogo.getScene().getWindow().hide();
 						stage.centerOnScreen();
 						stage.setResizable(false);
 						stage.initStyle(StageStyle.UNDECORATED);
 						scene.getStylesheets().add("/resources/application.css");
+						stage.getIcons().add(new Image("/resources/logo.png"));
+						stage.setTitle("e-Diabete");
 						stage.show();
+						//Native windows minimize/maximize window from icon in the task bar using JNA library (StackOverflow)
+						long lhwnd = com.sun.glass.ui.Window.getWindows().get(0).getNativeWindow();
+				        Pointer lpVoid = new Pointer(lhwnd);
+				        WinDef.HWND hwnd = new WinDef.HWND(lpVoid);
+				        final User32 user32 = User32.INSTANCE;
+				        int oldStyle = user32.GetWindowLong(hwnd, GWL_STYLE);
+				        int newStyle = oldStyle | 0x00020000;//WS_MINIMIZEBOX
+				        user32.SetWindowLong(hwnd, GWL_STYLE, newStyle);
 					} catch(Exception e) {
 						e.printStackTrace();
 					}

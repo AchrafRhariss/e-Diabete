@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="pane" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clicked" prefHeight="600.0" prefWidth="1013.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.arhariss.application.controllers.AdherentController">
+   <children>
+      <ImageView fitHeight="32.0" fitWidth="131.0" onMouseClicked="#returnBack" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../resources/arrow-left.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <Label layoutX="268.0" layoutY="67.0" prefHeight="32.0" prefWidth="167.0" text="Nom/prénom d'Adhérent :">
+         <font>
+            <Font name="Calibri Light" size="15.0" />
+         </font></Label>
+      <TextField fx:id="adherentName" focusTraversable="false" layoutX="445.0" layoutY="70.0" onKeyReleased="#searchAdherent" prefHeight="25.0" prefWidth="218.0" promptText="Effectuer une recherche..." />
+      <TableView fx:id="adherentTable" focusTraversable="false" layoutY="124.0" onMouseClicked="#tableClick" prefHeight="337.0" prefWidth="1013.0">
+        <columns>
+          <TableColumn fx:id="number" maxWidth="467.0" minWidth="51.0" prefWidth="207.0" text="Numéro" />
+          <TableColumn fx:id="lastName" maxWidth="0.0" minWidth="100.0" prefWidth="151.0" text="Nom" />
+            <TableColumn fx:id="firstName" maxWidth="0.0" minWidth="120.0" prefWidth="128.0" text="Prénom" />
+            <TableColumn fx:id="birthDate" maxWidth="206.0" minWidth="110.0" prefWidth="144.0" text="Date de naissance" />
+            <TableColumn fx:id="address" maxWidth="0.0" minWidth="230.0" prefWidth="62.0" text="Adresse" />
+            <TableColumn fx:id="telephone" maxWidth="0.0" minWidth="100.0" prefWidth="129.0" text="Téléphone" />
+            <TableColumn fx:id="usedDrugs" maxWidth="0.0" minWidth="200.0" prefWidth="264.0" text="Médicament utilisé" />
+            <TableColumn fx:id="adhesionDate" minWidth="100.0" prefWidth="264.0" text="Date d'adhésion" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <HBox alignment="CENTER" layoutY="502.0" prefHeight="60.0" prefWidth="1013.0" spacing="80.0">
+         <children>
+            <Label fx:id="consultBtn" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#getAdherentDetails" prefHeight="40.0" prefWidth="150.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50; -fx-text-fill: black;" styleClass="mainbutton" text="Consulter" textFill="#6e6e6e">
+               <font>
+                  <Font name="Verdana" size="15.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" onMousePressed="#addNewAdherent" prefHeight="40.0" prefWidth="150.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50; -fx-text-fill: black;" styleClass="mainbutton" text="Ajouter" textFill="#6e6e6e">
+               <font>
+                  <Font name="Verdana" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="editBtn" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#editAdherent" prefHeight="40.0" prefWidth="150.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50; -fx-text-fill: black;" styleClass="mainbutton" text="Modifier" textFill="#6e6e6e">
+               <font>
+                  <Font name="Verdana" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="deleteBtn" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#deleteAdherent" prefHeight="40.0" prefWidth="150.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50; -fx-text-fill: black;" styleClass="mainbutton" text="Supprimer" textFill="#6e6e6e">
+               <font>
+                  <Font name="Verdana" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <Label alignment="CENTER" layoutX="39.0" layoutY="8.0" onMouseClicked="#returnBack" text="Retour" textFill="#797979">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+      <Label fx:id="searchAdherent" layoutX="643.0" layoutY="72.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fx:id="search" fitHeight="25.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../resources/search.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </graphic>
+      </Label>
+      <Label fx:id="clearSearchLabel" layoutX="645.0" layoutY="75.0" onMouseClicked="#clearSearch" visible="false">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../resources/close.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </graphic>
+      </Label>
+      <Label alignment="CENTER" layoutX="269.0" prefHeight="17.0" prefWidth="456.0" text="Les Bénificiaires" textFill="#3498db">
+         <font>
+            <Font name="Calibri" size="25.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

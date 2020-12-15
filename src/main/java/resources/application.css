@@ -46,3 +46,33 @@
 	-fx-border-color: #048FD8;
 	-fx-border-width : 0 0 0 2;
 }
+
+.mainbutton {
+	-fx-border-color:  #3498DB;
+	-fx-border-width: 0.5;
+	-fx-border-radius: 50;
+	/*-fx-text-fill: #6e6e6e;*/
+	-fx-text-fill: #3498DB;
+	-fx-pref-width: 175;
+	-fx-pref-height: 40;
+	-fx-text-alignment: center;
+	-fx-alignment: center;
+	-fx-font-family: Verdana;
+	-fx-font-size: 15px;
+	-fx-font-weight: bold;
+}
+
+.mainbutton:hover {
+	-fx-background-color:  #3498DB;
+	-fx-cursor: hand;
+	-fx-text-fill: white;
+	-fx-border-color:  #3498DB;
+	-fx-border-width: 0.5;
+	-fx-border-radius: 50;
+	-fx-background-radius: 50;
+}
+
+TableView:focused {
+    -fx-focus-color: transparent; 
+    -fx-background-insets: -1.4, 0, 1, 2;
+}

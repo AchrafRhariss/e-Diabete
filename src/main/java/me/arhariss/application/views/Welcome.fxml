@@ -14,30 +14,36 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1068.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 0.5 0;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.arhariss.application.controllers.WelcomeController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1203.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 0.5 0;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.arhariss.application.controllers.WelcomeController">
    <children>
-      <Pane fx:id="controlPane" layoutX="186.0" layoutY="-2.0" onMouseDragged="#moving" onMousePressed="#premoving" prefHeight="63.0" prefWidth="881.0" style="-fx-background-color: #ccc; -fx-opacity: 0.3;">
+      <Pane fx:id="controlPane" layoutX="186.0" onMouseDragged="#moving" onMousePressed="#premoving" prefHeight="63.0" prefWidth="1017.0" style="-fx-background-color: #ccc; -fx-opacity: 0.3;">
          <cursor>
             <Cursor fx:constant="MOVE" />
          </cursor>
       </Pane>
-      <AnchorPane fx:id="mainpane" layoutX="186.0" layoutY="60.0" prefHeight="608.0" prefWidth="881.0" style="-fx-background-color: white;" />
+      <AnchorPane fx:id="mainpane" layoutX="186.0" layoutY="63.0" prefHeight="603.0" prefWidth="1017.0" style="-fx-background-color: white;" />
       <Pane prefHeight="656.0" prefWidth="187.0">
          <children>
             <StackPane prefHeight="665.0" prefWidth="186.0" style="-fx-background-color: #31383E;">
                <children>
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="669.0" prefWidth="186.0" spacing="10.0">
                      <children>
-                        <SplitPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="63.0" prefWidth="186.0" style="-fx-box-border: transparent; -fx-padding: 0 0 0 70px; -fx-background-color: #22272A;" styleClass="logoPane">
+                        <SplitPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="86.0" prefWidth="186.0" style="-fx-box-border: transparent; -fx-background-color: #31383E;" styleClass="logoPane">
                            <items>
-                              <ImageView fx:id="logoSopra" fitHeight="47.0" fitWidth="47.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="logoSopra" fitHeight="77.0" fitWidth="105.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../../resources/logo.png" />
                                  </image>
                               </ImageView>
                            </items>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="55.0" />
+                           </padding>
                         </SplitPane>
-                        <Pane prefHeight="150.0" prefWidth="186.0">
+                        <Pane prefHeight="148.0" prefWidth="186.0">
                            <children>
                               <Circle fill="#1f93ff00" layoutX="93.0" layoutY="45.0" radius="45.0" stroke="#c63636" strokeType="INSIDE" strokeWidth="2.0" />
                               <ImageView fitHeight="90.0" fitWidth="90.0" layoutX="48.0" pickOnBounds="true" preserveRatio="true">
@@ -45,12 +51,12 @@
                                     <Image url="@../../../../resources/avatar.png" />
                                  </image>
                               </ImageView>
-                              <Label fx:id="username" alignment="CENTER" contentDisplay="CENTER" layoutY="90.0" prefHeight="17.0" prefWidth="184.0" textFill="#f86767">
+                              <Label fx:id="username" alignment="CENTER" contentDisplay="CENTER" layoutY="90.0" prefHeight="17.0" prefWidth="184.0" text="admin" textFill="#f86767">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="email" alignment="CENTER" contentDisplay="CENTER" layoutY="109.0" prefHeight="17.0" prefWidth="184.0" textFill="#8d8d8d">
+                              <Label fx:id="email" alignment="CENTER" contentDisplay="CENTER" layoutY="109.0" prefHeight="17.0" prefWidth="184.0" text="admin@al-amal.com" textFill="#8d8d8d">
                                  <font>
                                     <Font name="System Italic" size="12.0" />
                                  </font>
@@ -77,7 +83,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Label>
-                                    <Label fx:id="idClient" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#loadViewToMainPane" prefHeight="60.0" prefWidth="184.0" styleClass="leftButtons" text="Bénificiaires" textAlignment="CENTER" textFill="WHITE">
+                                    <Label fx:id="idClient" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#loadViewToMainPane" prefHeight="60.0" prefWidth="184.0" styleClass="leftButtons" text="Adhérents" textAlignment="CENTER" textFill="WHITE">
                                        <font>
                                           <Font name="Calibri Bold" size="18.0" />
                                        </font>
@@ -161,12 +167,12 @@
             </StackPane>
          </children>
       </Pane>
-      <Label fx:id="viewTitle" layoutX="212.0" layoutY="22.0" prefHeight="17.0" prefWidth="184.0" textFill="#4081ff">
+      <Label fx:id="viewTitle" layoutX="503.0" layoutY="8.0" prefHeight="44.0" prefWidth="378.0" text="جمعية الأمل لداء السكري تيكوين أكادير" textFill="#4081ff">
          <font>
-            <Font name="Century Gothic Bold" size="15.0" />
+            <Font name="Dubai Regular" size="25.0" />
          </font>
       </Label>
-      <HBox layoutX="1020.0" layoutY="10.0" spacing="10.0">
+      <HBox layoutX="1154.0" layoutY="10.0" spacing="10.0">
          <children>
             <Circle fill="#6cb33e" onMouseClicked="#minimizeWindow" opacity="0.7" radius="7.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="shine">
                <cursor>
