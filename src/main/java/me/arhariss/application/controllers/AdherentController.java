@@ -96,10 +96,20 @@ public class AdherentController {
 
 	@Autowired
 	private AdherentRepository adherentRepository;
-	
+
 	@Autowired
 	private ConfigurableApplicationContext springContext;
-	
+
+	@Autowired
+	private WelcomeController welcomeController;
+
+	public WelcomeController getWelcomeController() {
+		return welcomeController;
+	}
+
+	public void setWelcomeController(WelcomeController welcomeController) {
+		this.welcomeController = welcomeController;
+	}
 
 	public ConfigurableApplicationContext getSpringContext() {
 		return springContext;
@@ -128,7 +138,6 @@ public class AdherentController {
 	@PostConstruct
 	private void init() {
 		// get values of adherents from database and set them into an observable object
-		
 
 	}
 
@@ -158,22 +167,7 @@ public class AdherentController {
 
 	@FXML
 	void addNewAdherent(MouseEvent event) {
-		try {
-			Stage addAdherentStage = new Stage();
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../views/AddAdherent.fxml"));
-//			fxmlLoader.setControllerFactory(springContext::getBean);
-			AnchorPane root = (AnchorPane) fxmlLoader.load();
-			Scene addAdherentScene = new Scene(root, 1013, 600);
-			addAdherentStage.setScene(addAdherentScene);
-			addAdherentStage.setTitle("Ajouter Un Nouveau Adhérent");
-			addAdherentStage.centerOnScreen();
-			addAdherentStage.setAlwaysOnTop(true);
-			addAdherentStage.setResizable(false);
-			addAdherentStage.show();
-			System.out.println("here iam");
-		} catch (Exception e) {
-			e.getStackTrace();
-		}
+		welcomeController.loadViewToMainPaneByName("AddAdherent");
 	}
 
 	@FXML
@@ -263,11 +257,10 @@ public class AdherentController {
 		searchAdherent.setVisible(false);
 		List<Adherent> adherents = new ArrayList<Adherent>();
 		String firstOrLastName = adherentName.getText().trim();
-		if(!firstOrLastName.isEmpty()) {
+		if (!firstOrLastName.isEmpty()) {
 			adherents = adherentRepository.findByFirstNameContainsOrLastNameContainsAllIgnoreCase(firstOrLastName,
 					firstOrLastName);
 		}
-			
 
 		if (adherents.isEmpty()) {
 			adherentObservableList.clear();

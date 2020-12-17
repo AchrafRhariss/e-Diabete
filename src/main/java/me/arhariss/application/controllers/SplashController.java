@@ -1,5 +1,7 @@
 package me.arhariss.application.controllers;
 
+import static com.sun.jna.platform.win32.WinUser.GWL_STYLE;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -10,7 +12,6 @@ import org.springframework.stereotype.Component;
 import com.sun.jna.Pointer;
 import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef;
-import static com.sun.jna.platform.win32.WinUser.GWL_STYLE;
 
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -22,6 +23,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Control;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Line;
@@ -88,6 +90,11 @@ public class SplashController implements Initializable {
 						stage.getIcons().add(new Image("/resources/logo.png"));
 						stage.setTitle("e-Diabete");
 						stage.show();
+						scene.setOnMousePressed(event -> {
+					        if (!(event.getSource() instanceof Control)) {
+					           scene.getRoot().requestFocus();
+					        }
+						});
 						//Native windows minimize/maximize window from icon in the task bar using JNA library (StackOverflow)
 						long lhwnd = com.sun.glass.ui.Window.getWindows().get(0).getNativeWindow();
 				        Pointer lpVoid = new Pointer(lhwnd);

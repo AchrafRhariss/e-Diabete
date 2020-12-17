@@ -1,7 +1,5 @@
 package me.arhariss.application.controllers;
 
-
-
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +14,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import me.arhariss.application.util.ApplicationSession;
 
 @Component
 public class WelcomeController {
-	
-	private double x,y;
-	
+
+	private double x, y;
+
 	@FXML
 	private AnchorPane mainpane;
 
@@ -69,9 +68,20 @@ public class WelcomeController {
 
 	@FXML
 	private Label viewTitle;
-	
+
 	@Autowired
 	private ConfigurableApplicationContext springContext;
+
+	@Autowired
+	private ApplicationSession applicationSession;
+
+	public ApplicationSession getApplicationSession() {
+		return applicationSession;
+	}
+
+	public void setApplicationSession(ApplicationSession applicationSession) {
+		this.applicationSession = applicationSession;
+	}
 
 	public ConfigurableApplicationContext getSpringContext() {
 		return springContext;
@@ -93,7 +103,7 @@ public class WelcomeController {
 		Stage stage = (Stage) username.getScene().getWindow();
 		stage.setIconified(true);
 	}
-	
+
 	public void moving(MouseEvent mouseEvent) {
 
 		mainpane.getScene().getWindow().setX(mouseEvent.getScreenX() + x);
@@ -106,16 +116,21 @@ public class WelcomeController {
 		x = (double) (mainpane.getScene().getWindow().getX() - mouseEvent.getScreenX());
 		y = (double) (mainpane.getScene().getWindow().getY() - mouseEvent.getScreenY());
 	}
-	
+
 	@FXML
 	void loadViewToMainPane(MouseEvent event) {
-		String vienName = ((Label)(event.getSource())).getText().replace("é", "e");
-    	String viewPath = "../views/" + vienName + ".fxml";
-//    	viewTitle.setText("Gestion " + vienName);
+		String vienName = ((Label) (event.getSource())).getText().replace("é", "e");
+		loadViewToMainPaneByName(vienName);
+	}
+
+	void loadViewToMainPaneByName(String viewName) {
+		
+    	String viewPath = "../views/" + viewName + ".fxml";
     	try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(viewPath));
 			fxmlLoader.setControllerFactory(springContext::getBean);
 			Node root = (Node) fxmlLoader.load();
+			applicationSession.pushPage(root);
 			mainpane.getChildren().setAll(root);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -124,6 +139,6 @@ public class WelcomeController {
 
 	@FXML
 	void logout(MouseEvent event) {
-		
+
 	}
 }
