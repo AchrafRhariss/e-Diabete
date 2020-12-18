@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1013.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.arhariss.application.controllers.AddAdherentController">
+<AnchorPane prefHeight="600.0" prefWidth="1013.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.arhariss.application.controllers.EditAdherentController">
    <children>
       <VBox layoutX="77.0" layoutY="100.0" spacing="10.0">
          <children>
@@ -116,7 +116,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </Label>
-                              <TextField fx:id="orderedNumber" prefHeight="35.0" prefWidth="374.0" promptText="Saisissez le n° d'inscription">
+                              <TextField fx:id="orderedNumber" disable="true" prefHeight="35.0" prefWidth="374.0" promptText="Saisissez le n° d'inscription">
                                  <font>
                                     <Font name="Calibri Light" size="14.0" />
                                  </font>
@@ -173,12 +173,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="70.0">
                <children>
-                  <Label fx:id="save" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#saveAdherent" prefHeight="40.0" prefWidth="150.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50; -fx-text-fill: black;" styleClass="mainbutton" text="Ajouter" textFill="#6e6e6e">
-                     <font>
-                        <Font name="Verdana" size="15.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#reset" prefHeight="40.0" prefWidth="150.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50; -fx-text-fill: black;" styleClass="mainbutton" text="Réinitialiser" textFill="#6e6e6e">
+                  <Label fx:id="save" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#saveAdherent" prefHeight="40.0" prefWidth="150.0" style="-fx-border-color: #3498DB; -fx-border-width: 0.5; -fx-border-radius: 50; -fx-background-radius: 50; -fx-text-fill: black;" styleClass="mainbutton" text="Modifier" textFill="#6e6e6e">
                      <font>
                         <Font name="Verdana" size="15.0" />
                      </font>
@@ -203,7 +198,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Label>
-      <Label alignment="CENTER" layoutX="279.0" prefHeight="17.0" prefWidth="456.0" text="Ajouter un nouveau Bénificiaire" textFill="#3498db">
+      <Label fx:id="title" alignment="CENTER" layoutX="279.0" prefHeight="17.0" prefWidth="456.0" text="Modifier Le Bénificiaire N° " textFill="#3498db">
          <font>
             <Font name="Calibri" size="25.0" />
          </font>

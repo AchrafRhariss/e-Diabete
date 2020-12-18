@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
@@ -17,7 +15,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -30,7 +27,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import me.arhariss.application.entities.Adherent;
 import me.arhariss.application.repositories.AdherentRepository;
 import me.arhariss.application.util.ApplicationSession;
@@ -71,7 +67,15 @@ public class AdherentController {
 	@FXML
 	private TableColumn<Adherent, LocalDate> adhesionDate;
 
-	private ObservableList<Adherent> adherentObservableList;
+	private static ObservableList<Adherent> adherentObservableList;
+
+	public static ObservableList<Adherent> getAdherentObservableList() {
+		return adherentObservableList;
+	}
+
+	public static void setAdherentObservableList(ObservableList<Adherent> newAdherentObservableList) {
+		adherentObservableList = newAdherentObservableList;
+	}
 
 	@FXML
 	private Label searchAdherent;
@@ -135,12 +139,6 @@ public class AdherentController {
 		this.adherentRepository = adherentRepository;
 	}
 
-	@PostConstruct
-	private void init() {
-		// get values of adherents from database and set them into an observable object
-
-	}
-
 	@FXML
 	private void initialize() {
 
@@ -166,8 +164,64 @@ public class AdherentController {
 	}
 
 	@FXML
+	void getAdherentDetails(MouseEvent event) {
+
+	}
+
+	@FXML
 	void addNewAdherent(MouseEvent event) {
 		welcomeController.loadViewToMainPaneByName("AddAdherent");
+	}
+
+	@FXML
+	void editAdherent(MouseEvent event) {
+		welcomeController.loadViewToMainPaneByName("EditAdherent");
+	}
+
+	@FXML
+	void deleteAdherent(MouseEvent event) {
+		Adherent adherentToRemove = applicationSession.getSelectedAdherent();
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Attention");
+		alert.setHeaderText(String.format("Vous allez supprimer l' Adhérent %s %s", adherentToRemove.getFirstName(),
+				adherentToRemove.getLastName()));
+		alert.setContentText("êtes vous sûr ?");
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK) {
+			try {
+				adherentRepository.delete(adherentToRemove);
+				adherentObservableList.remove(adherentToRemove);
+			} catch (Exception e) {
+				Alert error = new Alert(AlertType.ERROR);
+				error.setTitle("ERREUR");
+				error.setHeaderText("Une erreur est survenue lors de la suppression de l'adhérent");
+				error.setContentText("Impossible de supprimer l'adhérent");
+
+				error.showAndWait();
+			}
+		} else {
+			clicked(event);
+		}
+	}
+
+	@FXML
+	void searchAdherent(KeyEvent event) {
+		clearSearchLabel.setVisible(true);
+		searchAdherent.setVisible(false);
+		List<Adherent> adherents = new ArrayList<Adherent>();
+		String firstOrLastName = adherentName.getText().trim();
+		if (!firstOrLastName.isEmpty()) {
+			adherents = adherentRepository.findByFirstNameContainsOrLastNameContainsAllIgnoreCase(firstOrLastName,
+					firstOrLastName);
+		}
+
+		if (adherents.isEmpty()) {
+			adherentObservableList.clear();
+		} else {
+			adherentObservableList.clear();
+			adherentObservableList.addAll(adherents);
+		}
 	}
 
 	@FXML
@@ -191,54 +245,6 @@ public class AdherentController {
 	}
 
 	@FXML
-	void deleteAdherent(MouseEvent event) {
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Confirmation De Suppression");
-		alert.setHeaderText("Vous allez supprimer ce Adhérent");
-		alert.setContentText("êtes vous sûr ?");
-
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK) {
-			try {
-				adherentRepository.delete(applicationSession.getSelectedAdherent());
-				adherentObservableList.remove(applicationSession.getSelectedAdherent());
-			} catch (Exception e) {
-				Alert error = new Alert(AlertType.ERROR);
-				error.setTitle("Erreur Suppression de l'Adhérent");
-				error.setHeaderText("La suppression a échoué");
-				error.setContentText("Ooops, there was an error!");
-
-				error.showAndWait();
-			}
-		} else {
-			clicked(event);
-		}
-	}
-
-	@FXML
-	void editAdherent(MouseEvent event) {
-		try {
-			Stage addAdherentStage = new Stage();
-			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("../views/EditAdherent.fxml"));
-			Scene addAdherentScene = new Scene(root, 550, 500);
-			addAdherentStage.setScene(addAdherentScene);
-			addAdherentStage.setTitle("Modifier l'Adhérent");
-			addAdherentStage.centerOnScreen();
-			addAdherentStage.setAlwaysOnTop(true);
-			addAdherentStage.setResizable(false);
-			addAdherentStage.show();
-
-		} catch (IOException e) {
-
-		}
-	}
-
-	@FXML
-	void getAdherentDetails(MouseEvent event) {
-
-	}
-
-	@FXML
 	void returnBack(MouseEvent event) {
 		Node DashboardSceneGraph;
 		try {
@@ -248,25 +254,6 @@ public class AdherentController {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-	}
-
-	@FXML
-	void searchAdherent(KeyEvent event) {
-		clearSearchLabel.setVisible(true);
-		searchAdherent.setVisible(false);
-		List<Adherent> adherents = new ArrayList<Adherent>();
-		String firstOrLastName = adherentName.getText().trim();
-		if (!firstOrLastName.isEmpty()) {
-			adherents = adherentRepository.findByFirstNameContainsOrLastNameContainsAllIgnoreCase(firstOrLastName,
-					firstOrLastName);
-		}
-
-		if (adherents.isEmpty()) {
-			adherentObservableList.clear();
-		} else {
-			adherentObservableList.clear();
-			adherentObservableList.addAll(adherents);
 		}
 	}
 

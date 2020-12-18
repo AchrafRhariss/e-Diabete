@@ -13,9 +13,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import me.arhariss.application.entities.Adherent;
 import me.arhariss.application.repositories.AdherentRepository;
+import me.arhariss.application.util.ApplicationSession;
 
 @Component
-public class AddAdherentController {
+public class EditAdherentController {
 
 	@FXML
 	private TextField lastName;
@@ -47,8 +48,14 @@ public class AddAdherentController {
 	@FXML
 	private Label save;
 
+	@FXML
+	private Label title;
+
 	@Autowired
 	private AdherentRepository adherentRepository;
+
+	@Autowired
+	private ApplicationSession applicationSession;
 
 	public AdherentRepository getAdherentRepository() {
 		return adherentRepository;
@@ -57,9 +64,37 @@ public class AddAdherentController {
 	public void setAdherentRepository(AdherentRepository adherentRepository) {
 		this.adherentRepository = adherentRepository;
 	}
-	
 
-	
+	public ApplicationSession getApplicationSession() {
+		return applicationSession;
+	}
+
+	public void setApplicationSession(ApplicationSession applicationSession) {
+		this.applicationSession = applicationSession;
+	}
+
+	private Adherent nvAdherent;
+
+	@FXML
+	public void initialize() {
+
+		Adherent selectedAdherent = applicationSession.getSelectedAdherent();
+		nvAdherent = new Adherent();
+		nvAdherent.setId(selectedAdherent.getId());
+		
+		title.setText(title.getText() + selectedAdherent.getOrderedNumber());
+		
+		firstName.setText(selectedAdherent.getFirstName());
+		lastName.setText(selectedAdherent.getLastName());
+		address.setText(selectedAdherent.getAddress());
+		telephone.setText(selectedAdherent.getTelephone());
+		age.setText(String.valueOf(selectedAdherent.getAge()));
+		orderedNumber.setText(selectedAdherent.getOrderedNumber());
+		birthDate.setValue(selectedAdherent.getBirthDate());
+		adhesionDate.setValue(selectedAdherent.getAdhesionDate());
+		usedDrugs.setText(selectedAdherent.getUsedDrugs());
+	}
+
 	@FXML
 	void saveAdherent(MouseEvent event) {
 
@@ -69,13 +104,12 @@ public class AddAdherentController {
 
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Attention");
-			alert.setHeaderText("Impossible de sauvegarder l'adhérent");
+			alert.setHeaderText("Impossible de modifier l'adhérent");
 			alert.setContentText(String.format("Tous les champs doivent être remplis."));
 			alert.showAndWait();
 
 		} else {
 
-			Adherent nvAdherent = new Adherent();
 			try {
 				nvAdherent.setFirstName(firstName.getText());
 				nvAdherent.setLastName(lastName.getText());
@@ -86,35 +120,26 @@ public class AddAdherentController {
 				nvAdherent.setBirthDate(birthDate.getValue());
 				nvAdherent.setAdhesionDate(adhesionDate.getValue());
 				nvAdherent.setUsedDrugs(usedDrugs.getText());
-				AdherentController.getAdherentObservableList().addAll(adherentRepository.save(nvAdherent));// DONOT DO THAT
+
+				int index = AdherentController.getAdherentObservableList().indexOf(nvAdherent);
+				AdherentController.getAdherentObservableList().set(index, adherentRepository.save(nvAdherent));
+
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Informarion");
 				alert.setHeaderText("Transaction Validée");
-				alert.setContentText(String.format("L'adhérent(e) %s %s à été ajouté avec succés",
+				alert.setContentText(String.format("L'adhérent(e) %s %s à été modifié avec succés",
 						nvAdherent.getFirstName(), nvAdherent.getLastName()));
 				alert.showAndWait();
-				reset(event);
+
 			} catch (Exception e) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("ERREUR");
-				alert.setHeaderText("Une erreur est survenue lors du sauvegarde de l'adhérent");
-				alert.setContentText(String.format("Vérifier les informations fournis"));
+				alert.setHeaderText("Une erreur est survenue lors du modification de l'adhérent");
+				alert.setContentText(String.format("Vérifier les informations fournis\n%s", e.getMessage()));
 				alert.showAndWait();
+				e.printStackTrace();
 			}
 		}
-	}
-
-	@FXML
-	void reset(MouseEvent event) {
-		firstName.setText("");
-		lastName.setText("");
-		address.setText("");
-		telephone.setText("");
-		age.setText("");
-		orderedNumber.setText("");
-		birthDate.setValue(null);
-		adhesionDate.setValue(null);
-		usedDrugs.setText("");
 	}
 
 	@FXML
