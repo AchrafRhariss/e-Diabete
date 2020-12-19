@@ -16,7 +16,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1203.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 0.5 0;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.arhariss.application.controllers.WelcomeController">
    <children>
-      <Pane fx:id="controlPane" layoutX="186.0" onMouseDragged="#moving" onMousePressed="#premoving" prefHeight="63.0" prefWidth="1017.0" style="-fx-background-color: #ccc; -fx-opacity: 0.3;">
+      <Pane fx:id="controlPane" layoutX="186.0" onMouseDragged="#moving" onMousePressed="#premoving" prefHeight="63.0" prefWidth="1017.0" style="-fx-background-color: #31383E #31383E;">
          <cursor>
             <Cursor fx:constant="MOVE" />
          </cursor>
@@ -167,7 +167,7 @@
             </StackPane>
          </children>
       </Pane>
-      <Label fx:id="viewTitle" layoutX="503.0" layoutY="8.0" prefHeight="44.0" prefWidth="378.0" text="جمعية الأمل لداء السكري تيكوين أكادير" textFill="#4081ff">
+      <Label fx:id="viewTitle" layoutX="503.0" layoutY="8.0" prefHeight="44.0" prefWidth="378.0" text="جمعية الأمل لداء السكري تيكوين أكادير" textFill="#e6c74f">
          <font>
             <Font name="Dubai Regular" size="25.0" />
          </font>

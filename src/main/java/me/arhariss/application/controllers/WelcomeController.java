@@ -130,7 +130,6 @@ public class WelcomeController {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(viewPath));
 			fxmlLoader.setControllerFactory(springContext::getBean);
 			Node root = (Node) fxmlLoader.load();
-			applicationSession.pushPage(root);
 			mainpane.getChildren().setAll(root);
 		} catch (IOException e) {
 			e.printStackTrace();

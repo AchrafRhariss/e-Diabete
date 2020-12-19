@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -187,22 +184,6 @@
             </HBox>
          </children>
       </VBox>
-      <ImageView fitHeight="32.0" fitWidth="131.0" onMouseClicked="#returnBack" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../resources/arrow-left.png" />
-         </image>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ImageView>
-      <Label alignment="CENTER" layoutX="39.0" layoutY="8.0" onMouseClicked="#returnBack" text="Retour" textFill="#797979">
-         <font>
-            <Font name="System Bold Italic" size="12.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Label>
       <Label alignment="CENTER" layoutX="279.0" prefHeight="17.0" prefWidth="456.0" text="Ajouter un nouveau Bénificiaire" textFill="#3498db">
          <font>
             <Font name="Calibri" size="25.0" />

@@ -1,6 +1,5 @@
 package me.arhariss.application.controllers;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -25,7 +24,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import me.arhariss.application.entities.Adherent;
 import me.arhariss.application.repositories.AdherentRepository;
@@ -157,6 +155,21 @@ public class AdherentController {
 		// Add the observable object with all data on it to the table view so that it
 		// tracks the chages on it.
 		adherentTable.setItems(adherentObservableList);
+		
+		//EventListener for row selection in TableView:
+		adherentTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Adherent>() {
+			@Override
+			public void changed(ObservableValue<? extends Adherent> observable, Adherent oldValue, Adherent newValue) {
+				if(newValue != null) {
+					applicationSession.setSelectedAdherent(newValue);
+					editBtn.setDisable(false);
+					deleteBtn.setDisable(false);
+					consultBtn.setDisable(false);
+				}
+			}
+		});
+		
+		//UI stuff
 		pane.requestFocus();
 		consultBtn.setDisable(true);
 		deleteBtn.setDisable(true);
@@ -235,36 +248,13 @@ public class AdherentController {
 
 	@FXML
 	void clicked(MouseEvent event) {
-		Adherent adherent = adherentTable.getSelectionModel().getSelectedItem();
-		if (adherent != null) {
-			applicationSession.setSelectedAdherent(adherent);
-			editBtn.setDisable(false);
-			deleteBtn.setDisable(false);
-		}
+		adherentTable.getSelectionModel().clearSelection();
+		applicationSession.setSelectedAdherent(null);
+		editBtn.setDisable(true);
+		deleteBtn.setDisable(true);
+		consultBtn.setDisable(true);
 		pane.requestFocus();
 	}
 
-	@FXML
-	void returnBack(MouseEvent event) {
-		Node DashboardSceneGraph;
-		try {
-			DashboardSceneGraph = (Node) FXMLLoader.load(getClass().getResource("../views/Nothing.fxml"));
-			AnchorPane mainpane = (AnchorPane) pane.getParent();
-			mainpane.getChildren().setAll(DashboardSceneGraph);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	@FXML
-	void tableClick(MouseEvent event) {
-		Adherent adherent = adherentTable.getSelectionModel().getSelectedItem();
-		if (adherent != null) {
-			applicationSession.setSelectedAdherent(adherent);
-			editBtn.setDisable(false);
-			deleteBtn.setDisable(false);
-		}
-	}
 
 }
